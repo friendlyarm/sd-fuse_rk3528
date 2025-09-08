@@ -35,7 +35,6 @@ sd-fuse 使用不同的git分支来支持不同的内核版本, 当前支持的�
 * proxmox-arm64
 * eflasher
 * alpine-linux-arm64
-* arch-linux-arm64
 * openmediavault-arm64
 
   
@@ -46,8 +45,8 @@ sd-fuse 使用不同的git分支来支持不同的内核版本, 当前支持的�
   
 ## 获得打包固件所需要的素材
 制作固件所需要的素材有:
-* 内核源代码: 在[网盘](https://download.friendlyelec.com/rk3528)的 "07_源代码" 目录中, 或者从[此github链接](https://github.com/friendlyarm/kernel-rockchip)下载, 分支为nanopi6-v6.1.y_next_zero2
-* uboot源代码: 在[网盘](https://download.friendlyelec.com/rk3528)的 "07_源代码" 目录中, 或者从[此github链接](https://github.com/friendlyarm/uboot-rockchip)下载, 分支为nanopi6-v2017.09_next_zero2
+* 内核源代码: 在[网盘](https://download.friendlyelec.com/rk3528)的 "07_源代码" 目录中, 或者从[此github链接](https://github.com/friendlyarm/kernel-rockchip)下载, 分支为nanopi6-v6.1.y
+* uboot源代码: 在[网盘](https://download.friendlyelec.com/rk3528)的 "07_源代码" 目录中, 或者从[此github链接](https://github.com/friendlyarm/uboot-rockchip)下载, 分支为nanopi5-v2017.09
 * 分区镜像文件: 在[网盘](https://download.friendlyelec.com/rk3528)的 "03_分区镜像文件" 目录中, 或者从[此http链接](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher)下载
 * 文件系统压缩包: 在[网盘](https://download.friendlyelec.com/rk3528)的 "06_文件系统" 目录中, 或者从[此http链接](http://112.124.9.243/dvdfiles/rk3528/rootfs)下载
   
@@ -194,13 +193,17 @@ tar xvzf debian-bookworm-core-arm64-images.tgz
 ```
 从github克隆内核源代码到本地:
 ```
-git clone https://github.com/friendlyarm/kernel-rockchip -b nanopi6-v6.1.y_next_zero2 --depth 1 kernel
+git clone https://github.com/friendlyarm/kernel-rockchip -b nanopi6-v6.1.y --depth 1 kernel
 ```
 根据需要配置内核:
 ```
 cd kernel
 touch .scmversion
-make ARCH=arm64 nanopi_rk3528_linux_defconfig
+
+make ARCH=arm64 nanopi5_linux_defconfig kvm.config
+# Optionally, load configuration for FriendlyWrt
+# make ARCH=arm64 nanopi5_linux_defconfig kvm.config friendlywrt.config
+
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- menuconfig     # 根据需要改动配置
 make ARCH=arm64 CROSS_COMPILE=aarch64-linux-gnu- savedefconfig
 cp defconfig ./arch/arm64/configs/my_defconfig                  # 保存配置 my_defconfig
@@ -234,7 +237,7 @@ tar xvzf debian-bookworm-core-arm64-images.tgz
 ```
 从github克隆与OS版本相匹配的u-boot源代码到本地, 环境变量UBOOT_SRC用于指定本地源代码目录:
 ```
-git clone https://github.com/friendlyarm/uboot-rockchip -b nanopi6-v2017.09_next_zero2 --depth 1 uboot
+git clone https://github.com/friendlyarm/uboot-rockchip -b nanopi5-v2017.09 --depth 1 uboot
 UBOOT_SRC=uboot ./build-uboot.sh debian-bookworm-core-arm64
 ```
 
