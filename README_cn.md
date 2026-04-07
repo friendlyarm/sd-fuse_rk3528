@@ -28,17 +28,15 @@ sd-fuse 使用不同的git分支来支持不同的内核版本, 当前支持的�
 * debian-bullseye-minimal-arm64
 * friendlywrt24
 * friendlywrt24-docker
-* friendlywrt23
-* friendlywrt23-docker
-* friendlywrt21
-* friendlywrt21-docker
+* friendlywrt25
+* friendlywrt25-docker
 * proxmox-arm64
 * eflasher
 * alpine-linux-arm64
 * openmediavault-arm64
 
   
-这些OS名称是分区镜像文件存放的目录名, 在脚本内亦有严格定义, 所以不能改动, 例如要制作debian-bookworm的SD固件, 可使用如下命令:
+这些OS名称是分区镜像文件存放的目录名, 在脚本内亦有严格定义, 所以不能改动, 例如要制作debian-trixie的SD固件, 可使用如下命令:
 ```
 ./mk-sd-image.sh debian-trixie-core-arm64
 ```
@@ -63,8 +61,8 @@ sd-fuse 使用不同的git分支来支持不同的内核版本, 当前支持的�
 
 ## 如何使用
 ### 重新打包SD卡运行固件
-*注: 这里以debian-bookworm系统为例进行说明*  
-下载本仓库到本地, 然后下载并解压debian-bookworm系统的[分区镜像文件压缩包](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher), 由于http服务器带宽的关系, wget命令可能会比较慢, 推荐从网盘上下载同名的文件:
+*注: 这里以debian-trixie系统为例进行说明*  
+下载本仓库到本地, 然后下载并解压debian-trixie系统的[分区镜像文件压缩包](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher), 由于http服务器带宽的关系, wget命令可能会比较慢, 推荐从网盘上下载同名的文件:
 ```
 git clone https://github.com/friendlyarm/sd-fuse_rk3528 -b kernel-6.1.y --single-branch sd-fuse_rk3528-kernel6.1
 cd sd-fuse_rk3528-kernel6.1
@@ -95,8 +93,8 @@ cp prebuilt/dtbo-plain.img debian-trixie-core-arm64/dtbo.img
 
 
 ### 重新打包 SD-to-eMMC 卡刷固件
-*注: 这里以debian-bookworm系统为例进行说明*  
-下载本仓库到本地, 然后下载并解压[分区镜像文件压缩包](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher), 这里需要下载debian-bookworm和eflasher系统的文件:
+*注: 这里以debian-trixie系统为例进行说明*  
+下载本仓库到本地, 然后下载并解压[分区镜像文件压缩包](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher), 这里需要下载debian-trixie和eflasher系统的文件:
 ```
 git clone https://github.com/friendlyarm/sd-fuse_rk3528 -b kernel-6.1.y --single-branch sd-fuse_rk3528-kernel6.1
 cd sd-fuse_rk3528-kernel6.1
@@ -126,7 +124,7 @@ tar --warning=no-file-changed -cvpzf /rootfs.tar.gz \
     --exclude=/usr/local/first_boot_flag --one-file-system /
 ```
 #### 从根文件系统制作一个可启动的SD卡
-*注: 这里以debian-bookworm系统为例进行说明*  
+*注: 这里以debian-trixie系统为例进行说明*  
 下载本仓库到本地, 然后下载并解压[分区镜像压缩包](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher):
 ```
 git clone https://github.com/friendlyarm/sd-fuse_rk3528 -b kernel-6.1.y --single-branch sd-fuse_rk3528-kernel6.1
@@ -183,7 +181,7 @@ sudo -E FS_TYPE=btrfs ./build-rootfs-img.sh debian-trixie-core-arm64/rootfs \
 ```
 
 ### 编译内核
-*注: 这里以debian-bookworm系统为例进行说明*  
+*注: 这里以debian-trixie系统为例进行说明*  
 下载本仓库到本地, 然后下载并解压[分区镜像压缩包](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher):
 ```
 git clone https://github.com/friendlyarm/sd-fuse_rk3528 -b kernel-6.1.y --single-branch sd-fuse_rk3528-kernel6.1
@@ -227,7 +225,7 @@ MK_HEADERS_DEB=1 ./build-kernel.sh debian-trixie-core-arm64
 * 设置SKIP_DISTCLEAN为1编译前不执行distclean
 
 ### 编译 u-boot
-*注: 这里以debian-bookworm系统为例进行说明* 
+*注: 这里以debian-trixie系统为例进行说明* 
 下载本仓库到本地, 然后下载并解压[分区镜像压缩包](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher):
 ```
 git clone https://github.com/friendlyarm/sd-fuse_rk3528 -b kernel-6.1.y --single-branch sd-fuse_rk3528-kernel6.1

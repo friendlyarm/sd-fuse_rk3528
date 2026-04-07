@@ -29,17 +29,15 @@ For other kernel versions, please switch to the related git branch.
 * debian-bullseye-minimal-arm64
 * friendlywrt24
 * friendlywrt24-docker
-* friendlywrt23
-* friendlywrt23-docker
-* friendlywrt21
-* friendlywrt21-docker
+* friendlywrt25
+* friendlywrt25-docker
 * proxmox-arm64
 * eflasher
 * alpine-linux-arm64
 * openmediavault-arm64
 
   
-To build an SD card image for debian-bookworm, for example like this:
+To build an SD card image for debian-trixie, for example like this:
 ```
 ./mk-sd-image.sh debian-trixie-core-arm64
 ```
@@ -64,7 +62,7 @@ If the files are not prepared in advance, the script will automatically download
 
 ## Usage
 ### Build your own SD card image
-*Note: Here we use debian-bookworm system as an example*  
+*Note: Here we use debian-trixie system as an example*  
 Clone this repository locally, then download and uncompress the [pre-built images](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher), due to the bandwidth of the http server, we recommend downloading the file from the [NetDrive](https://download.friendlyelec.com/rk3528):
 ```
 git clone https://github.com/friendlyarm/sd-fuse_rk3528 -b kernel-6.1.y --single-branch sd-fuse_rk3528-kernel6.1
@@ -80,7 +78,7 @@ Or, package it as an SD card image file:
 ```
 ./mk-sd-image.sh debian-trixie-core-arm64
 ```
-The following flashable image file will be generated, it is now ready to be used to boot the device into debian-bookworm:  
+The following flashable image file will be generated, it is now ready to be used to boot the device into debian-trixie:  
 ```
 out/rk3528-sd-debian-trixie-core-6.1-arm64-YYYYMMDD.img
 ```
@@ -97,8 +95,8 @@ The benefits of disabling OverlayFS are as follows:
 * Enabling Swap becomes more convenient
 
 ### Build your own SD-to-eMMC Image
-*Note: Here we use debian-bookworm system as an example*  
-Clone this repository locally, then download and uncompress the [pre-built images](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher), here you need to download the debian-bookworm and eflasher [pre-built images](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher):
+*Note: Here we use debian-trixie system as an example*  
+Clone this repository locally, then download and uncompress the [pre-built images](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher), here you need to download the debian-trixie and eflasher [pre-built images](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher):
 ```
 git clone https://github.com/friendlyarm/sd-fuse_rk3528 -b kernel-6.1.y --single-branch sd-fuse_rk3528-kernel6.1
 cd sd-fuse_rk3528-kernel6.1
@@ -111,7 +109,7 @@ Then use the following command to build the SD-to-eMMC image, the autostart=yes 
 ```
 ./mk-emmc-image.sh debian-trixie-core-arm64 autostart=yes
 ```
-The following flashable image file will be generated, ready to be used to boot the device into eflasher system and then flash debian-bookworm system to eMMC: 
+The following flashable image file will be generated, ready to be used to boot the device into eflasher system and then flash debian-trixie system to eMMC: 
 ```
 out/rk3528-eflasher-debian-trixie-core-6.1-arm64-YYYYMMDD.img
 ```
@@ -128,7 +126,7 @@ tar --warning=no-file-changed -cvpzf /rootfs.tar.gz \
     --exclude=/usr/local/first_boot_flag --one-file-system /
 ```
 #### Making a bootable SD card from a root filesystem
-*Note: Here we use debian-bookworm system as an example*  
+*Note: Here we use debian-trixie system as an example*  
 Clone this repository locally, then download and uncompress the [pre-built images](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher):
 ```
 git clone https://github.com/friendlyarm/sd-fuse_rk3528 -b kernel-6.1.y --single-branch sd-fuse_rk3528-kernel6.1
@@ -185,7 +183,7 @@ sudo -E FS_TYPE=btrfs ./build-rootfs-img.sh debian-trixie-core-arm64/rootfs \
 ```
 
 ### Compiling the Kernel
-*Note: Here we use debian-bookworm system as an example*  
+*Note: Here we use debian-trixie system as an example*  
 Clone this repository locally, then download and uncompress the [pre-built images](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher):
 ```
 git clone https://github.com/friendlyarm/sd-fuse_rk3528 -b kernel-6.1.y --single-branch sd-fuse_rk3528-kernel6.1
@@ -229,7 +227,7 @@ MK_HEADERS_DEB=1 ./build-kernel.sh debian-trixie-core-arm64
 * Set SKIP_DISTCLEAN to 1 to skip running distclean before compiling
 
 ### Compiling the u-boot
-*Note: Here we use debian-bookworm system as an example* 
+*Note: Here we use debian-trixie system as an example* 
 Clone this repository locally, then download and uncompress the [pre-built images](http://112.124.9.243/dvdfiles/rk3528/images-for-eflasher):
 ```
 git clone https://github.com/friendlyarm/sd-fuse_rk3528 -b kernel-6.1.y --single-branch sd-fuse_rk3528-kernel6.1
