@@ -258,6 +258,21 @@ function build_kernel() {
         })
     })
 
+    # build aic8800
+    (cd ${OUT} && {
+        if [ ! -d aic8800 ]; then
+            git clone https://github.com/friendlyarm/aic8800 -b main --depth 1 aic8800
+        fi
+        (cd aic8800 && {
+            make CROSS_COMPILE=${CROSS_COMPILE} ARCH=${ARCH} \
+                -C ${KERNEL_SRC} \
+                CONFIG_AIC_FW_PATH=/lib/firmware/aic \
+                M=$(pwd)
+            mkdir -p ${KMODULES_OUTDIR}/lib/modules/${KERNEL_VER}/extra
+            cp ./*/*.ko ${KMODULES_OUTDIR}/lib/modules/${KERNEL_VER}/extra -afv
+        })
+    })
+
     # build nft-fullcone
     (cd ${OUT} && {
         if [ ! -d nft-fullcone ]; then
